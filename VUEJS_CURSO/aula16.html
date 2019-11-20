@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Document</title>
+    </head>
+    <body>
+
+        <div id="app">
+            {{nome}}
+            <button @click="imprimir()">
+                Chamar mudança
+            </button>
+        </div>
+
+        <div id="app1">
+            {{nome}}
+        </div>
+        
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+        <script>
+
+            let mensagem = "Minha aplicação";
+
+
+            const app = new Vue({
+                el: '#app',
+                data: {
+                    nome: '${mensagem} 0'
+                },
+                methods :{
+                    imprimir(){
+                        app.nome = "Outra informação";
+                        app1.nome = "Outra informação";
+                    }
+                }
+            });
+
+            const app1 = new Vue({
+                el: '#app1',
+                data: {
+                    nome: '${mensagem} 1'
+                }
+            });
+        </script>
+    </body>
+</html>

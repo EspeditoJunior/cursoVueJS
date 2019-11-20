@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Document</title>
+    </head>
+    <body>
+
+        <div id="app">
+            <form v-on:submit.prevent="alterarNome()">
+                    <input type="text" v-model="textoDigitado">
+                    <button type="submit">
+                        Add
+                    </button>
+            </form>
+
+            <input type="text" v-model="textoDigitado" v-on:keyup.enter="alterarNome('Espedito')">
+            
+            <ul>
+                <li v-for="item in array" @click="alerta($event)" style="background:blue">
+                    {{item}}
+                </li>
+            </ul>
+
+            red
+            <input @click="corP($event.target.value)" type="radio" name="cor" value="red">
+            green
+            <input @click="corP($event.target.value)" type="radio" name="cor" value="green">
+            blue
+            <input @click="corP($event.target.value)" type="radio" name="cor" value="blue">
+            yellow
+            <input @click="corP($event.target.value)" type="radio" name="cor" value="yellow">
+        
+            <button @click="vermelho()">Vermelho</button>
+            <button @click="verde()">Verde</button>
+            <button @click="borda()">Borda</button>
+            <button @click="incolor()">Incolor</button>
+
+
+            <p v-bind:class="{red: colors.vermelho, 
+                              green: colors.verde,
+                              borda: colors.borda}">
+                bla bla bla
+            </p>
+
+            <p class="red, green">
+                Teste
+            </p>
+
+        </div>
+
+
+        <style>
+            .red {background-color: red; }
+            .green {background-color: green;}
+            .blue {background-color: blue;}
+            .yellow {background-color: yellow;}
+            .borda {border: 3px solid blue}
+        </style>
+        
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+        <script>
+            new Vue({
+                el: '#app',
+                data: {
+                    textoDigitado: "",
+                    array: [],
+                    classParagrafo: "red",
+                    colors: {
+                        vermelho: true,
+                        verde: false,
+                        borda: false
+                    }
+                },
+                methods: {
+                    alterarNome() {
+                        this.array.push(this.textoDigitado);
+                        this.textoDigitado = "";
+                    },
+                    alerta(event) {
+                        if(event.target.style.background == 'red none repeat scroll 0% 0%' ) {
+                            console.log(event.target.style.background);
+                            event.target.style.background =  "blue";
+                        }
+                        else { 
+                            console.log(event.target.style.background);
+                            event.target.style.background = "red";
+                        }
+                    },
+                    corP(cor) {
+                        this.classParagrafo = cor;
+                    },
+                    vermelho() {
+                        this.colors.vermelho = true;
+                        this.colors.verde = false;
+                    },
+                    verde() {
+                        this.colors.vermelho = false;
+                        this.colors.verde = true;
+                    },
+                    borda() {
+                        if(this.colors.borda == true) {
+                            this.colors.borda = false;
+                        } else {
+                            this.colors.borda = true;
+                        }                        
+                    },
+                    incolor() {
+                        this.colors.vermelho = false;
+                        this.colors.verde = false;
+                        this.colors.borda = false;                       
+                    }
+                }
+            })
+        </script>
+    </body>
+</html>
